@@ -6,7 +6,7 @@ export const Wrapper = styled.header`
   margin-right: auto;
   padding: 40px 0px 62px;
   color: #dff9fb;
-  background-color: #766a6a;
+  background-color: #fff;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -25,7 +25,7 @@ export const NavLinkStyled = styled(NavLink)`
   color: #dff9fb;
   text-decoration: none;
   &:hover {
-    color: cadetblue;
+    color: #B53471;
     text-decoration: underline;
   }
 `;

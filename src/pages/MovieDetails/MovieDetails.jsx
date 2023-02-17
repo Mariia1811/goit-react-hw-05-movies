@@ -1,7 +1,9 @@
-import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
-import { useEffect, useRef, useState } from 'react';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { fetchMoviesById } from 'services/fetchMovies';
+import Loader from 'components/Loader';
+import { ArticleStyled, BtnGoBack, Info, MoreInfoLink, MoreInfoList, TitleInfo, Wrap } from './MovieDetails.styled';
 
 
 function MovieDetails() {
@@ -36,58 +38,61 @@ function MovieDetails() {
   } = movieById;
 
   return (
-    <>
-      <Link to={backLinkHref.current}>Go back</Link>;
-      <article>
+    <Wrap>
+      <BtnGoBack to={backLinkHref.current}> 🡨 Go back</BtnGoBack>
+
+      <ArticleStyled>
         <img
           src={`https://image.tmdb.org/t/p/original${poster_path}`}
           alt={title}
-          width="195"
-          height="300"
+          width="320"
+          height="430"
           loading="lazy"
         />
         <div>
           <h2>{title}</h2>
           <ul>
             <li>
-              <p>
+              <TitleInfo>
                 Vote / Votes
-                <span>{vote_average}</span>
-                <span>{vote_count}</span>
-              </p>
+                <Info>{vote_average} / </Info>  
+                <Info>{vote_count}</Info>
+              </TitleInfo>
             </li>
             <li>
-              <p>
-                Popularity <span>{popularity}</span>
-              </p>
+              <TitleInfo>
+                Popularity <Info>{popularity}</Info>
+              </TitleInfo>
             </li>
             <li>
-              <p>
+              <TitleInfo>
                 Genre:
                 {genres &&
-                  genres.map(({ id, name }) => <span key={id}> {name}, </span>)}
-              </p>
+                  genres.map(({ id, name }) => <Info key={id}> | {name} </Info>)}
+              </TitleInfo>
             </li>
             <li>
-              <h4>About</h4>
-              <p>{overview}</p>
+              <TitleInfo>About</TitleInfo>
+              <Info>{overview}</Info>
             </li>
           </ul>
-        </div>
-      </article>
-      <ul>
-        <li>
           <h2>Additional information</h2>
+        <MoreInfoList>
+        <li>
+          <MoreInfoLink to="cast">Cast</MoreInfoLink>
         </li>
         <li>
-          <Link to="cast">Cast</Link>
+          <MoreInfoLink to="reviews">Reviews</MoreInfoLink>
         </li>
-        <li>
-          <Link to="reviews">Reviews</Link>
-        </li>
-      </ul>
+      </MoreInfoList>
+        </div>
+        
+      </ArticleStyled>
+        
+      <Suspense fallback={<Loader/>}>
       <Outlet />
-    </>
+      </Suspense>
+    </Wrap>
   );
 }
 

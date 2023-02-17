@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { fetchMoviesCredits } from 'services/fetchMovies';
+import { CastsList, CastsText, TextInfoCact } from './Cast.styled';
 
 function Cast() {
   const [casts, setCasts] = useState(null);
@@ -22,21 +23,21 @@ function Cast() {
 
   return (
     casts && (
-      <ul>
+      <CastsList>
         {casts.map(({ id, character, profile_path, name }) => (
           <li key={id}>
             <img
               src={`https://image.tmdb.org/t/p/original${profile_path}`}
               alt={name}
-              width="100"
-              height="150"
+              width="150"
+              height="210"
               loading="lazy"
             />
-            <h3>Name: {name}</h3>
-            <p>character: {character}</p>
+            <TextInfoCact><CastsText>Name: </CastsText> {name}</TextInfoCact>
+            <TextInfoCact><CastsText>Character:  </CastsText> {character}</TextInfoCact>
           </li>
         ))}
-      </ul>
+      </CastsList>
     )
   );
 }

@@ -5,6 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { toast } from 'react-toastify';
 import { fetchSearchMovies } from 'services/fetchMovies';
 import MovieList from 'components/MovieItem';
+import { Input, Form, ListSearchMovie, Main, Section } from './Movies.styled';
 
 function Movies() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -46,10 +47,10 @@ function Movies() {
   }
 
   return (
-    <main>
-      <section>
-        <form onSubmit={handleSubmit}>
-          <input
+    <Main>
+      <Section>
+        <Form onSubmit={handleSubmit}>
+          <Input
             className="input"
             name="searchUserMovie"
             type="text"
@@ -62,9 +63,9 @@ function Movies() {
           <IconButton aria-label="search" type="submit">
             <SearchIcon />
           </IconButton>
-        </form>
+        </Form>
         {listMovies && (
-          <ul>
+          <ListSearchMovie>
             {listMovies.map(
               ({ id, poster_path, title, release_date, vote_average }) => {
                 return (
@@ -79,10 +80,10 @@ function Movies() {
                 );
               }
             )}
-          </ul>
+          </ListSearchMovie>
         )}
-      </section>
-    </main>
+      </Section>
+    </Main>
   );
 }
 

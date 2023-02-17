@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { fetchMoviesReviews } from 'services/fetchMovies';
+import { ReviewsText } from './Reviews.styled';
 
 function Reviews() {
   const [reviews, setReviews] = useState([]);
@@ -26,7 +27,8 @@ function Reviews() {
     {reviews.map(({ id, author, content }) => (
       <li key={id}>
         <h3>Author: {author}</h3>
-        <p>{content}</p>
+        
+        <ReviewsText>{content}</ReviewsText>
       </li>
     ))}
   </ul>)

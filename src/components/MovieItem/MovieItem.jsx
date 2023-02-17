@@ -1,14 +1,18 @@
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Data, ImgStyled, LinkSstyled, TextWrap, Title, Vote } from './MovieItem.styled';
 
-function MovieList({ id, poster, title, date, vote}) {
+function MovieList({ id, poster, title, date, vote }) {
   const location = useLocation();
 
-  if(poster === 'https://image.tmdb.org/t/p/originalnull'){poster = "https://cid.center/wp-content/uploads/2020/11/placeholder.png"}
+  if (poster === 'https://image.tmdb.org/t/p/originalnull') {
+    poster = 'https://cid.center/wp-content/uploads/2020/11/placeholder.png';
+  }
   return (
     <li>
-      <Link to = {`/movies/${id}`} state={{ from: location }}>
+      <LinkSstyled to={`/movies/${id}`} state={{ from: location }}>
         <div>
-          <img
+          <ImgStyled
             src={poster}
             alt={title}
             width="320"
@@ -16,20 +20,24 @@ function MovieList({ id, poster, title, date, vote}) {
             loading="lazy"
           />
         </div>
-        <div>
-          <span>{id}</span>
-          <p>{title}</p>
+        <TextWrap>
+          <Title>{title}</Title>
           <div>
-            <p>{date.slice(0, 4)}</p>
-            <span>{vote}</span>
+            <Data>{date.slice(0, 4)}</Data>
+           {(vote !== 0) && <Vote>{vote}</Vote>} 
           </div>
-        </div>
-        </Link> 
+        </TextWrap>
+      </LinkSstyled>
     </li>
   );
 }
 
+MovieList.propTypes = {
+  id: PropTypes.number.isRequired,
+  poster: PropTypes.string,
+  title: PropTypes.string,
+  date: PropTypes.string,
+  vote: PropTypes.number,
+};
+
 export default MovieList;
-
-
-

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { fetchTrendingMovies } from 'services/fetchMovies';
 import MovieList from 'components/MovieItem';
-import { ListMovie, SectionStyled, Title } from './Home.styled';
+import { Button, ListMovie, SectionStyled, Title } from './Home.styled';
 
 function Home() {
   const [listMovies, setlistMovies] = useState(null);
@@ -24,7 +24,7 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    if (!listMovies) {
+    if (page === 1) {
       return;
     }
     (async function getPopularMoviesNextPage() {
@@ -35,7 +35,7 @@ function Home() {
         toast.error('Oops error, please try again.', {});
       }
     })();
-    // eslint-disable-next-line
+
   }, [page]);
 
   function handleClick() {
@@ -65,7 +65,7 @@ function Home() {
           </ListMovie>
         )}
         {!(totalPages < page) ? (
-          <button onClick={handleClick} />
+          <Button onClick={handleClick}> Load more </Button>
         ) : (
           <p>...these are all movies for this request...</p>
         )}
